@@ -158,7 +158,7 @@ class CalendarHeatmap extends React.Component {
 
   getTransformForWeekdayLabels() {
     if (this.props.horizontal) {
-      return `translate(${SQUARE_SIZE}, ${this.getMonthLabelSize()})`;
+      return `translate(${SQUARE_SIZE}, ${this.getMonthLabelSize() * 0.8})`;
     }
     return null;
   }
@@ -194,7 +194,7 @@ class CalendarHeatmap extends React.Component {
 
   getWeekdayLabelCoordinates(dayIndex) {
     if (this.props.horizontal) {
-      return [0, (dayIndex + 1) * SQUARE_SIZE + dayIndex * this.props.gutterSize];
+      return [0, (dayIndex + 0.7) * SQUARE_SIZE + dayIndex * this.props.gutterSize];
     }
     return [dayIndex * SQUARE_SIZE + dayIndex * this.props.gutterSize, SQUARE_SIZE];
   }
@@ -238,7 +238,7 @@ class CalendarHeatmap extends React.Component {
     const [x, y] = this.getSquareCoordinates(dayIndex);
     const value = this.getValueForIndex(index);
     const rect = (
-      // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+      <>
       <rect
         key={index}
         width={SQUARE_SIZE}
@@ -253,6 +253,9 @@ class CalendarHeatmap extends React.Component {
       >
         <title>{this.getTitleForIndex(index)}</title>
       </rect>
+
+      <circle {...this.getTooltipDataAttrsForIndex(index)} r={0} cx={x + SQUARE_SIZE/2} cy={y + SQUARE_SIZE/2} width={SQUARE_SIZE} height={SQUARE_SIZE} />
+      </>
     );
     const { transformDayElement } = this.props;
     return transformDayElement ? transformDayElement(rect, value, index) : rect;
@@ -302,11 +305,11 @@ class CalendarHeatmap extends React.Component {
         this.props.horizontal ? '' : `${CSS_PSEDUO_NAMESPACE}small-text`
       } ${CSS_PSEDUO_NAMESPACE}weekday-label`;
       // eslint-disable-next-line no-bitwise
-      return dayIndex & 1 ? (
-        <text key={`${x}${y}`} x={x} y={y} className={cssClasses}>
+      return (
+        <text key={`${x}${y}`} x={x} y={y + 3} className={cssClasses}>
           {weekdayLabel}
         </text>
-      ) : null;
+      )
     });
   }
 

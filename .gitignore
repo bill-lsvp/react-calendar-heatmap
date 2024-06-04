@@ -8,3 +8,6 @@ coverage
 .cache
 .eslintcache
 .idea
+
+.npmrc
+npm=debug.log*
