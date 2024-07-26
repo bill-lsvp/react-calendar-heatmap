@@ -240,6 +240,7 @@ class CalendarHeatmap extends React.Component {
     }
     const [x, y] = this.getSquareCoordinates(dayIndex);
     const value = this.getValueForIndex(index);
+
     const rect = (
       <React.Fragment key={`square_${index}`}>
       <rect
@@ -257,7 +258,7 @@ class CalendarHeatmap extends React.Component {
         <title>{this.getTitleForIndex(index)}</title>
       </rect>
 
-      <circle {...this.getTooltipDataAttrsForIndex(index)} r={0} cx={x + SQUARE_SIZE/2} cy={y + SQUARE_SIZE/2} width={SQUARE_SIZE} height={SQUARE_SIZE} />
+      <circle {...this.getTooltipDataAttrsForIndex(index)} x={x} y={y} cx={x + SQUARE_SIZE/2} cy={y + SQUARE_SIZE/2} width={SQUARE_SIZE} height={SQUARE_SIZE} />
       </React.Fragment>
     );
     const { transformDayElement } = this.props;
