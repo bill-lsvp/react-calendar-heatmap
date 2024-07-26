@@ -8,6 +8,7 @@ import {
   getBeginningTimeForDate,
   convertToDate,
   getRange,
+  isLocalTimeBeforeGMT,
 } from './helpers';
 
 const SQUARE_SIZE = 10;
@@ -228,7 +229,9 @@ class CalendarHeatmap extends React.Component {
     }
   }
 
-  renderSquare(dayIndex, index) {
+  renderSquare(dayIndex, idx) {
+    // to fix a bug in this library, not ideal
+    const index = isLocalTimeBeforeGMT() ? idx - 1 : idx 
     const indexOutOfRange =
       index < this.getNumEmptyDaysAtStart() ||
       index >= this.getNumEmptyDaysAtStart() + this.getDateDifferenceInDays();
@@ -238,7 +241,7 @@ class CalendarHeatmap extends React.Component {
     const [x, y] = this.getSquareCoordinates(dayIndex);
     const value = this.getValueForIndex(index);
     const rect = (
-      <>
+      <React.Fragment key={`square_${index}`}>
       <rect
         key={index}
         width={SQUARE_SIZE}
@@ -255,7 +258,7 @@ class CalendarHeatmap extends React.Component {
       </rect>
 
       <circle {...this.getTooltipDataAttrsForIndex(index)} r={0} cx={x + SQUARE_SIZE/2} cy={y + SQUARE_SIZE/2} width={SQUARE_SIZE} height={SQUARE_SIZE} />
-      </>
+      </React.Fragment>
     );
     const { transformDayElement } = this.props;
     return transformDayElement ? transformDayElement(rect, value, index) : rect;

@@ -1,6 +1,6 @@
 {
   "name": "lsvp-react-calendar-heatmap",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "description": "A calendar heatmap component built on SVG, inspired by Github's commit calendar graph.  Forked by LSVP",
   "author": "Bill Zdon",
   "main": "dist/react-calendar-heatmap.cjs.js",

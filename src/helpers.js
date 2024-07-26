@@ -25,3 +25,7 @@ export function getRange(count) {
   }
   return arr;
 }
+
+export function isLocalTimeBeforeGMT() {
+  return new Date().getTimezoneOffset() > 0
+}
